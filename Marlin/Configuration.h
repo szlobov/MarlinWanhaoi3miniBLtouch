@@ -20,7 +20,7 @@
  *
  */
 #pragma once
-
+#define CONFIG_EXAMPLES_DIR "Wanhao/Duplicator i3 Mini"
 /**
  * Configuration.h
  *
@@ -37,37 +37,7 @@
  */
 #define CONFIGURATION_H_VERSION 020008
 
-//===========================================================================
-//============================= Getting Started =============================
-//===========================================================================
 
-/**
- * Here are some standard links for getting your machine calibrated:
- *
- * https://reprap.org/wiki/Calibration
- * https://youtu.be/wAL9d7FgInk
- * http://calculator.josefprusa.cz
- * https://reprap.org/wiki/Triffid_Hunter%27s_Calibration_Guide
- * https://www.thingiverse.com/thing:5573
- * https://sites.google.com/site/repraplogphase/calibration-of-your-reprap
- * https://www.thingiverse.com/thing:298812
- */
-
-//===========================================================================
-//============================= DELTA Printer ===============================
-//===========================================================================
-// For a Delta printer, start with one of the configuration files in the config/examples/delta directory
-// from https://github.com/MarlinFirmware/Configurations/branches/all and customize for your machine.
-//
-
-//===========================================================================
-//============================= SCARA Printer ===============================
-//===========================================================================
-// For a SCARA printer, start with one of the configuration files in the config/examples/SCARA directory
-// from https://github.com/MarlinFirmware/Configurations/branches/all and customize for your machine.
-//
-
-// @section info
 
 // Author info of this build printed to the host during boot and M115
 #define STRING_CONFIG_H_AUTHOR "(thisiskeithb, Wanhao i3 Mini)" // Who made the changes.
@@ -416,7 +386,7 @@
 #define TEMP_SENSOR_5 0
 #define TEMP_SENSOR_6 0
 #define TEMP_SENSOR_7 0
-#define TEMP_SENSOR_BED 11
+#define TEMP_SENSOR_BED 0
 #define TEMP_SENSOR_PROBE 0
 #define TEMP_SENSOR_CHAMBER 0
 
@@ -856,8 +826,7 @@
  *      - normally-closed switches to GND and D32.
  *      - normally-open switches to 5V and D32.
  */
-//#define Z_MIN_PROBE_PIN 32 // Pin 32 is the RAMPS default
-
+#define Z_MIN_PROBE_PIN 51 // Pin 32 is the RAMPS default
 /**
  * Probe Type
  *
@@ -1361,6 +1330,7 @@
     #define MESH_TEST_HOTEND_TEMP  205    // (°C) Default nozzle temperature for the G26 Mesh Validation Tool.
     #define MESH_TEST_BED_TEMP      60    // (°C) Default bed temperature for the G26 Mesh Validation Tool.
     #define G26_XY_FEEDRATE         20    // (mm/s) Feedrate for XY Moves for the G26 Mesh Validation Tool.
+    #define G26_XY_FEEDRATE_TRAVEL 100    // (mm/s) Feedrate for G26 XY travel moves.
     #define G26_RETRACT_MULTIPLIER   1.0  // G26 Q (retraction) used by default between mesh test elements.
   #endif
 
@@ -1451,6 +1421,7 @@
     #define LEVEL_CORNERS_VERIFY_RAISED   // After adjustment triggers the probe, re-probe to verify
     //#define LEVEL_CORNERS_AUDIO_FEEDBACK
   #endif
+  #define LEVEL_CORNERS_LEVELING_ORDER { LF, RF, RB, LB }
 #endif
 
 /**
@@ -1734,6 +1705,9 @@
  * View the current statistics with M78.
  */
 #define PRINTCOUNTER
+#if ENABLED(PRINTCOUNTER)
+  #define PRINTCOUNTER_SAVE_INTERVAL 60 // (minutes) EEPROM save interval during print
+#endif
 
 /**
  * Password
@@ -1806,7 +1780,7 @@
  *
  * :['JAPANESE', 'WESTERN', 'CYRILLIC']
  */
-#define DISPLAY_CHARSET_HD44780 JAPANESE
+#define DISPLAY_CHARSET_HD44780 CYRILLIC
 
 /**
  * Info Screen Style (0:Classic, 1:Průša)

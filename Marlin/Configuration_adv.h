@@ -1,6 +1,17 @@
 /**
  * Marlin 3D Printer Firmware
- * Copyright (c) 2020 MarlinFirmware [https://github.com/MarlinFirmware/Marlin]
+ * Copyright (c) 2020 MarlinFirmware [htt// Specify additional languages for the UI. Default specified by LCD_LANGUAGE.
+//
+#if ANY(DOGLCD, TFT_COLOR_UI, TOUCH_UI_FTDI_EVE)
+  //#define LCD_LANGUAGE_2 fr
+  //#define LCD_LANGUAGE_3 de
+  //#define LCD_LANGUAGE_4 es
+  //#define LCD_LANGUAGE_5 it
+  #ifdef LCD_LANGUAGE_2
+    //#define LCD_LANGUAGE_AUTO_SAVE // Automatically save language to EEPROM on change
+  #endif
+#endif
+ps://github.com/MarlinFirmware/Marlin]
  *
  * Based on Sprinter and grbl.
  * Copyright (c) 2011 Camiel Gubbels / Erik van der Zalm
@@ -111,6 +122,12 @@
   #define CHAMBER_PULLUP_RESISTOR_OHMS 4700    // Pullup resistor
   #define CHAMBER_RESISTANCE_25C_OHMS  100000  // Resistance at 25C
   #define CHAMBER_BETA                 3950    // Beta value
+#endif
+
+#if TEMP_SENSOR_PROBE == 1000
+  #define PROBE_PULLUP_RESISTOR_OHMS   4700    // Pullup resistor
+  #define PROBE_RESISTANCE_25C_OHMS    100000  // Resistance at 25C
+  #define PROBE_BETA                   3950    // Beta value
 #endif
 
 //
@@ -666,9 +683,9 @@
 
 //#define HOMING_BACKOFF_POST_MM { 2, 2, 2 }  // (mm) Backoff from endstops after homing
 
-//#define QUICK_HOME                          // If G28 contains XY do a diagonal move first
+#define QUICK_HOME                          // If G28 contains XY do a diagonal move first
 //#define HOME_Y_BEFORE_X                     // If G28 contains XY home Y before X
-//#define HOME_Z_FIRST                        // Home Z first. Requires a Z-MIN endstop (not a probe).
+#define HOME_Z_FIRST                        // Home Z first. Requires a Z-MIN endstop (not a probe).
 //#define CODEPENDENT_XY_HOMING               // If X/Y can't home without homing Y/X first
 
 // @section bltouch
@@ -1525,6 +1542,17 @@
     #endif
   #endif
 #endif // HAS_DGUS_LCD
+// Specify additional languages for the UI. Default specified by LCD_LANGUAGE.
+//
+#if ANY(DOGLCD, TFT_COLOR_UI, TOUCH_UI_FTDI_EVE)
+  //#define LCD_LANGUAGE_2 fr
+  //#define LCD_LANGUAGE_3 de
+  //#define LCD_LANGUAGE_4 es
+  //#define LCD_LANGUAGE_5 it
+  #ifdef LCD_LANGUAGE_2
+    //#define LCD_LANGUAGE_AUTO_SAVE // Automatically save language to EEPROM on change
+  #endif
+#endif
 
 //
 // Touch UI for the FTDI Embedded Video Engine (EVE)
@@ -1667,7 +1695,7 @@
 #if ENABLED(BABYSTEPPING)
   //#define INTEGRATED_BABYSTEPPING         // EXPERIMENTAL integration of babystepping into the Stepper ISR
   //#define BABYSTEP_WITHOUT_HOMING
-  //#define BABYSTEP_ALWAYS_AVAILABLE       // Allow babystepping at all times (not just during movement).
+  // #define BABYSTEP_ALWAYS_AVAILABLE       // Allow babystepping at all times (not just during movement).
   //#define BABYSTEP_XY                     // Also enable X/Y Babystepping. Not supported on DELTA!
   #define BABYSTEP_INVERT_Z false           // Change if Z babysteps should go the other way
   //#define BABYSTEP_MILLIMETER_UNITS       // Specify BABYSTEP_MULTIPLICATOR_(XY|Z) in mm instead of micro-steps
@@ -3336,7 +3364,7 @@
 /**
  * User-defined menu items that execute custom GCode
  */
-//#define CUSTOM_USER_MENUS
+#define CUSTOM_USER_MENUS
 #if ENABLED(CUSTOM_USER_MENUS)
   //#define CUSTOM_USER_MENU_TITLE "Custom Commands"
   #define USER_SCRIPT_DONE "M117 User Script Done"
@@ -3373,10 +3401,10 @@
  * Host Prompt Support enables Marlin to use the host for user prompts so
  * filament runout and other processes can be managed from the host side.
  */
-//#define HOST_ACTION_COMMANDS
+#define HOST_ACTION_COMMANDS
 #if ENABLED(HOST_ACTION_COMMANDS)
-  //#define HOST_PROMPT_SUPPORT
-  //#define HOST_START_MENU_ITEM  // Add a menu item that tells the host to start
+  #define HOST_PROMPT_SUPPORT
+  #define HOST_START_MENU_ITEM  // Add a menu item that tells the host to start
 #endif
 
 /**
@@ -3384,7 +3412,7 @@
  *
  * Implement M486 to allow Marlin to skip objects
  */
-//#define CANCEL_OBJECTS
+#define CANCEL_OBJECTS
 
 /**
  * I2C position encoders for closed loop control.
@@ -3711,12 +3739,12 @@
 //
 // M42 - Set pin states
 //
-//#define DIRECT_PIN_CONTROL
+#define DIRECT_PIN_CONTROL
 
 //
 // M43 - display pin status, toggle pins, watch pins, watch endstops & toggle LED, test servo probe
 //
-//#define PINS_DEBUGGING
+#define PINS_DEBUGGING
 
 // Enable Marlin dev mode which adds some special commands
-//#define MARLIN_DEV_MODE
+#define MARLIN_DEV_MODE
